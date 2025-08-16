@@ -5,7 +5,6 @@ const Cart = () => {
   const { cartItems, removeFromCart, updateQuantity } = useCart();
   const [notification, setNotification] = useState('');
 
-  
   const handleQuantityChange = (id, quantity) => {
     if (quantity > 0) {
       updateQuantity(id, quantity);
@@ -17,7 +16,6 @@ const Cart = () => {
     setNotification(`Removed ${name} from your cart.`);
   };
 
-  
   useEffect(() => {
     if (notification) {
       const timer = setTimeout(() => {
@@ -31,7 +29,7 @@ const Cart = () => {
   const subtotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 
   return (
-    <div className="max-w-6xl mx-auto p-8">
+    <div className="max-w-6xl mx-auto p-4 sm:p-8">
       <h1 className="text-3xl font-bold mb-6 text-blue-800 text-center">Your Cart</h1>
 
       {notification && (
@@ -50,7 +48,7 @@ const Cart = () => {
                 <div className="flex items-center space-x-4">
                   <img src={item.image} alt={item.name} className="w-24 h-24 object-cover rounded" />
                   <div>
-                    <h2 className="font-semibold">{item.name}</h2>
+                    <h2 className="font-semibold text-lg">{item.name}</h2>
                     <p className="text-blue-600 font-bold">${item.price}</p>
                   </div>
                 </div>
@@ -66,7 +64,7 @@ const Cart = () => {
                   />
                   <button
                     onClick={() => handleRemove(item.id, item.name)}
-                    className="text-red-600"
+                    className="text-red-600 hover:text-red-700"
                   >
                     Remove
                   </button>

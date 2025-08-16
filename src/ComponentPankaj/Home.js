@@ -1,14 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Footer from './Footer';
 import { useCart } from './CartContext';
 import { toast } from 'react-toastify';
-import Ebay from "./ebay.png"
-import bgImage from "./shopping-concept-close-up-portrait-young-beautiful-attractive-redhair-girl-smiling-looking-camera.jpg"
+import Ebay from './ebay.png';
+import bgImage from './shopping-concept-close-up-portrait-young-beautiful-attractive-redhair-girl-smiling-looking-camera.jpg';
+import { debounce } from 'lodash';  // Import debounce function
+
 const Home = () => {
   const navigate = useNavigate();
   const { addToCart } = useCart();
   const [searchQuery, setSearchQuery] = useState('');
+  const [filteredProducts, setFilteredProducts] = useState(products);
+
+  // Handle search query change with debounce
+  const handleSearch = debounce((query) => {
+    setSearchQuery(query);
+    setFilteredProducts(
+      products.filter((product) =>
+        product.name.toLowerCase().includes(query.toLowerCase())
+      )
+    );
+  }, 500); // Adjust debounce delay as needed
+
+  useEffect(() => {
+    // Optional: Reset products on searchQuery change
+    setFilteredProducts(
+      products.filter((product) =>
+        product.name.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    );
+  }, [searchQuery]);
 
   const handleShopNow = () => {
     navigate('/login');
@@ -19,21 +41,16 @@ const Home = () => {
     toast.success(`${product.name} added to cart!`);
   };
 
-  const filteredProducts = products.filter(product =>
-    product.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
   return (
     <div className="border border-black">
-      
-      <nav className="flex items-center justify-between p-4">
-        <img className='w-20' src={Ebay} alt="ebay"/>
+      <nav className="flex items-center justify-between p-4 bg-white shadow-md">
+        <img className="w-20" src={Ebay} alt="eBay" />
         <div className="flex items-center space-x-2">
           <input
             type="search"
             placeholder="Search for anything"
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => handleSearch(e.target.value)}  // Use debounced search
             className="p-2 w-64 border rounded"
           />
           <button className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
@@ -42,30 +59,29 @@ const Home = () => {
         </div>
       </nav>
 
-<section
-  style={{
-    backgroundImage: `url(${bgImage})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'top center',
-    backgroundRepeat: 'no-repeat'
-  }}
-  className="text-center py-16"
->
-  <h1 className="text-4xl font-bold mb-4 text-white drop-shadow">Welcome to eBay</h1>
-  <p className="text-lg mb-6 text-white drop-shadow">
-    Shop the best deals on electronics, fashion, and more!
-  </p>
-  <button
-    onClick={handleShopNow}
-    className="px-6 py-3 bg-blue-600 text-white rounded hover:bg-blue-700 "
-  >
-    Shop Now
-  </button>
-</section>
+      {/* Hero Section */}
+      <section
+        style={{
+          backgroundImage: `url(${bgImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'top center',
+          backgroundRepeat: 'no-repeat',
+        }}
+        className="text-center py-16 bg-cover bg-center"
+      >
+        <h1 className="text-4xl font-bold mb-4 text-white drop-shadow">Welcome to eBay</h1>
+        <p className="text-lg mb-6 text-white drop-shadow">
+          Shop the best deals on electronics, fashion, and more!
+        </p>
+        <button
+          onClick={handleShopNow}
+          className="px-6 py-3 bg-blue-600 text-white rounded hover:bg-blue-700"
+        >
+          Shop Now
+        </button>
+      </section>
 
-
-
-     
+      {/* Product Section */}
       <section className="p-8">
         <h2 className="text-2xl font-semibold mb-6">Top Deals</h2>
         {filteredProducts.length === 0 ? (
@@ -85,6 +101,8 @@ const Home = () => {
                   <button
                     className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
                     onClick={() => alert('Buy Now feature coming soon!')}
+                    disabled
+                    title="Coming Soon"
                   >
                     Buy Now
                   </button>
@@ -106,6 +124,7 @@ const Home = () => {
   );
 };
 
+// Sample product data
 const products = [
   { id: 1, name: 'iPhone 14', price: 799, image: 'https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-card-40-iphone16prohero-202409?wid=680&hei=528&fmt=p-jpg&qlt=95' },
   { id: 2, name: 'Nike Sneakers', price: 120, image: 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/3f62c508-9141-4843-ba11-0f25a4313d6f/NIKE+CORTEZ.png' },

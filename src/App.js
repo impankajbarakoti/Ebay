@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { ToastContainer } from 'react-toastify'; // ✅ import toast container
-import 'react-toastify/dist/ReactToastify.css'; // ✅ import toast styles
+import { ToastContainer } from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
 
-import store from './ComponentPankaj/Store';
+import store from './ComponentPankaj/Store'; 
 import Home from './ComponentPankaj/Home';
 import About from './ComponentPankaj/About';
 import Contact from './ComponentPankaj/Contact';
@@ -32,11 +32,11 @@ const App = () => {
             
             <Route path='/productdetails/:productName' element={<ProductDetails />} />
 
-            <Route path='/products' element={<Products />} />
-            <Route path='/profile' element={<Profile />} />
-            <Route path='/cart' element={<Cart />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
+            <Route path='/products'element={<Products />} />
+            <Route path='/profile'element={<Profile />} />
+            <Route path='/cart'element={<Cart />} />
+            <Route path="/login"element={<Login />} />
+            <Route path="/signup"element={<Signup />} />
           </Routes>
         </BrowserRouter>
       </CartProvider>
@@ -45,3 +45,5 @@ const App = () => {
 };
 
 export default App;
+
+

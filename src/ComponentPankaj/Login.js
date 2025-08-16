@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Login as loginAction, LogOut } from './AuthSlice';
 import { useNavigate } from 'react-router-dom'; 
+
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate(); 
@@ -9,14 +10,33 @@ const Login = () => {
   const username = useSelector((state) => state.auth.username);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (email.trim() !== '' && password.trim() !== '') {
-      dispatch(loginAction(email));
-      setEmail('');
-      setPassword('');
+    setError('');
+    if (email.trim() === '' || password.trim() === '') {
+      setError('Please enter both email and password.');
+      return;
     }
+
+    setLoading(true);
+
+    // Simulating an async login process
+    setTimeout(() => {
+      const user = { email, username: 'JohnDoe' }; // Simulating user data
+
+      // Assuming successful login
+      if (email === 'user@example.com' && password === 'password') {
+        dispatch(loginAction(user));
+        navigate('/home');  // Redirect to home after successful login
+      } else {
+        setError('Invalid email or password');
+      }
+
+      setLoading(false);
+    }, 1000);
   };
 
   const handleLogout = () => {
@@ -26,7 +46,6 @@ const Login = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
-
         {isLogin ? (
           <>
             <h2 className="text-3xl font-bold text-center text-green-700 mb-6">
@@ -70,11 +89,14 @@ const Login = () => {
                 />
               </div>
 
+              {error && <p className="text-red-600 text-sm text-center">{error}</p>}
+
               <button
                 type="submit"
                 className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+                disabled={loading}
               >
-                Login
+                {loading ? 'Logging in...' : 'Login'}
               </button>
             </form>
 

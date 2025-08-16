@@ -2,12 +2,9 @@ import React from 'react';
 
 const About = () => {
   return (
-    <div className="bg-gray-100 py-12 px-8">
-
-      
+    <div className="bg-gray-100 py-12 px-4 sm:px-8">
       <h1 className="text-4xl font-bold text-center text-blue-800 mb-8">About eBay</h1>
 
-      
       <section className="max-w-3xl mx-auto mb-12 text-center">
         <h2 className="text-2xl font-semibold text-blue-600 mb-4">Our Mission</h2>
         <p className="text-lg text-gray-700">
@@ -15,7 +12,6 @@ const About = () => {
         </p>
       </section>
 
-      
       <section className="max-w-4xl mx-auto text-center mb-12">
         <h2 className="text-2xl font-semibold text-blue-600 mb-4">About Us</h2>
         <p className="text-lg text-gray-700">
@@ -23,7 +19,6 @@ const About = () => {
         </p>
       </section>
 
-      
       <section className="max-w-4xl mx-auto text-center">
         <h2 className="text-2xl font-semibold text-blue-600 mb-4">Meet Our Team</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -56,7 +51,6 @@ const About = () => {
           </div>
         </div>
       </section>
-
     </div>
   );
 };

@@ -45,5 +45,17 @@
   },
   "devDependencies": {
     "tailwindcss": "^3.4.17"
-  }
+  },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "tailwind.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/impankajbarakoti/Ebay.git"
+  },
+  "author": "Pankaj",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/impankajbarakoti/Ebay/issues"
+  },
+  "homepage": "https://github.com/impankajbarakoti/Ebay#readme"
 }
